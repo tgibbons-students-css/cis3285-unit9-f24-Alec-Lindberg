@@ -29,7 +29,14 @@ namespace SingleResponsibilityPrinciple
             int tradeAmount;
             if (!int.TryParse(tradeData[1], out tradeAmount))
             {
-                logger.LogWarning("Trade not a valid integer: '{0}'", tradeData[1]);
+                logger.LogWarning("Trade amount not a valid integer: '{0}'", tradeData[1]);
+                return false;
+            }
+
+            // New validation: Ensure trade amount is within specified bounds
+            if (tradeAmount < 1000 || tradeAmount > 1000000)
+            {
+                logger.LogWarning("Trade amount out of bounds: '{0}'", tradeAmount);
                 return false;
             }
 
